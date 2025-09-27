@@ -1,0 +1,189 @@
+Figure - 1
+
+---
+config:
+  layout: elk
+---
+flowchart LR
+ subgraph Inputs["Input Data"]
+    direction LR
+        PDB["fa:fa-database Protein Structure<br>PDB: 5V9O"]
+        CHEMBL["fa:fa-table Ligand Database<br>ChEMBL/ZINC20"]
+  end
+ subgraph Framework["Hybrid Quantum-Classical Framework"]
+    direction TB
+        AI["fa:fa-brain Quantum-Inspired Generative AI<br>Q-VAE &amp; Q-GAN Models"]
+        Docking["fa:fa-magnet Quantum-Annealing Docking<br>Hybrid Scoring Function"]
+  end
+ subgraph Outputs["Output & Analysis"]
+    direction LR
+        Valid["fa:fa-check Validated Molecules<br>Chemical &amp; QM Validation"]
+        Poses["fa:fa-cube Binding Poses<br>Optimized Conformations"]
+        Scores["fa:fa-chart-line Docking Scores<br>Affinity Predictions"]
+        Dashboard["fa:fa-dashboard Analysis Dashboard<br>Multi-metric Evaluation"]
+  end
+    AI -- Generated Molecules --> Docking
+    Docking -- Feedback Loop --> AI
+    Inputs --> Rep["fa:fa-code Molecular Representation<br>SMILES → 3D Coordinates<br>RDKit Processing"]
+    Rep --> Framework
+    Framework --> Outputs
+     PDB:::inputClass
+     CHEMBL:::inputClass
+     Valid:::outputClass
+     Poses:::outputClass
+     Scores:::outputClass
+     Dashboard:::outputClass
+     Rep:::processClass
+     Framework:::frameworkClass
+    classDef inputClass fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef processClass fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef frameworkClass fill:#fff3e0,stroke:#e65100,stroke-width:3px
+    classDef outputClass fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
+
+Figure - 2 
+---
+config:
+  layout: elk
+---
+flowchart TB
+ subgraph Left["Quantum-VAE Architecture"]
+    direction TB
+        L2["Encoder"]
+        L1["Input Molecules"]
+        L3["Latent Space z"]
+        L4["Quantum Circuit"]
+        L5["Quantum Attention"]
+        L6["z_quantum"]
+        L7["Decoder"]
+        L8["Output Molecules"]
+        L9["σ_quantumx = sinx·e⁻ˣ² + tanhx"]
+        L10["Attention_quantum = softmaxQW_qW_kᵀKᵀ/√d_k + Φ"]
+  end
+ subgraph Right["Quantum-GAN Architecture"]
+    direction TB
+        R2["Generator"]
+        R1["Quantum Noise"]
+        R3["Generated Molecules"]
+        R4["Discriminator"]
+        R5["Real/Fake Prediction"]
+        R6["Real Molecules"]
+        R7["z_quantum = z + γ·sinπz·e⁻ᶻ²"]
+        R8["Quantum-Attention Scoring"]
+  end
+    L1 --> L2
+    L2 --> L3
+    L3 --> L4
+    L4 --> L5 & L9
+    L5 --> L6 & L10
+    L6 --> L7
+    L7 --> L8
+    R1 --> R2
+    R2 --> R3 & R7
+    R3 --> R4
+    R4 --> R5 & R8
+    R6 --> R4
+    R5 -. Adversarial Feedback .-> R2
+    T["<b>Figure 4.2: Quantum Generative Model Architectures</b>"]
+     L4:::quantumStyle
+     L5:::quantumStyle
+     R7:::quantumStyle
+     R8:::quantumStyle
+     T:::titleStyle
+    classDef titleStyle fill:#2c3e50,stroke:#34495e,color:white,stroke-width:3px
+    classDef leftStyle fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef rightStyle fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+    classDef quantumStyle fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+
+Figure 4.3
+
+---
+config:
+  layout: elk
+---
+flowchart TD
+    Start(["Start"]) --> Init["Initialize Pose & Parameters"]
+    Init --> Loop["Begin Annealing Loop"]
+    Loop --> Transform["Apply Quantum Transformations"]
+    Transform --> Score["Calculate Hybrid Score"]
+    Score --> Decide{"Accept New Pose?"}
+    Decide -- Yes --> Update["Update Best Pose"]
+    Decide -- No --> Temp["Update Temperature"]
+    Update --> Temp
+    Temp --> Check{"Convergence Reached?"}
+    Check -- No --> Transform
+    Check -- Yes --> Output["Output Final Pose"]
+    Output --> End(["End"])
+     Start:::startEnd
+     Init:::process
+     Loop:::process
+     Transform:::process
+     Score:::process
+     Decide:::decision
+     Update:::process
+     Temp:::process
+     Check:::decision
+     Output:::process
+     End:::startEnd
+    classDef startEnd fill:#2c3e50,stroke:#34495e,color:white
+    classDef process fill:#3498db,stroke:#2980b9,color:white
+    classDef decision fill:#e67e22,stroke:#d35400,color:white,shape:diamond
+
+
+Figure - 2-a === do not consider this
+---
+config:
+  layout: elk
+---
+flowchart TB
+ subgraph Training["Training Dataset"]
+        T1["<b>Generative Model Training Set</b>"]
+        T2["Source: ZINC20 Database"]
+        T3["Size: ~1,000,000 compounds"]
+        T4["Filters: MW 250-550 Da, LogP ≤ 5"]
+        T5["Purpose: Training Q-VAE & Q-GAN"]
+  end
+ subgraph Validation["Validation Dataset"]
+        V1["<b>KRAS Validation Set</b>"]
+        V2["Source: ChEMBL/BindingDB"]
+        V3["Size: 285 compounds"]
+        V4["Filters: Experimental Kd/IC50 data"]
+        V5["Purpose: Model benchmarking"]
+  end
+ subgraph Protein["Protein Data"]
+        P1["<b>Target Structure</b>"]
+        P2["Source: RCSB PDB"]
+        P3["ID: 5V9O - KRAS G12C mutant"]
+        P4["Details: 1.8Å resolution complex"]
+        P5["Purpose: Docking studies"]
+  end
+ subgraph Generated["Generated Compounds"]
+        G1["<b>AI-Generated Library</b>"]
+        G2["Source: QI-GAN Framework"]
+        G3["Size: 10,000 molecules"]
+        G4["Criteria: Quantum-inspired generation"]
+        G5["Purpose: De novo design"]
+  end
+    T1 --> T2
+    T2 --> T3
+    T3 --> T4
+    T4 --> T5
+    V1 --> V2
+    V2 --> V3
+    V3 --> V4
+    V4 --> V5
+    P1 --> P2
+    P2 --> P3
+    P3 --> P4
+    P4 --> P5
+    G1 --> G2
+    G2 --> G3
+    G3 --> G4
+    G4 --> G5
+    T["<b>Figure 4.2: Dataset Specifications</b>"]
+     T:::titleStyle
+    classDef titleStyle fill:#2c3e50,stroke:#34495e,color:white,stroke-width:3px
+    classDef trainingStyle fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef validationStyle fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef proteinStyle fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+    classDef generatedStyle fill:#fce4ec,stroke:#ad1457,stroke-width:2px
+

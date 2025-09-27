@@ -1,0 +1,42 @@
+
+
+Figure - 4 
+
+---
+config:
+  theme: neo
+  layout: dagre
+---
+flowchart RL
+ subgraph GAN["Generative Adversarial Network"]
+        Generator["Generator"]
+        Discriminator["Discriminator"]
+  end
+ subgraph QuantumLoop["Quantum-Informed Feedback Loop"]
+        QuantumPredictor["Quantum Property Predictor | Simulated VQE Module"]
+  end
+ subgraph ClassicalPath["Classical Baseline"]
+        ClassicalPredictor["Classical Predictor | Decision Tree"]
+  end
+    Noise["Random Noise"] --> Generator
+    Generator --> GeneratedMolecules["Generated Molecules | SMILES format"]
+    GeneratedMolecules --> Discriminator & QuantumPredictor
+    RealData["Real Molecules Dataset"] --> Discriminator
+    QuantumPredictor -- Predicted Property | Energy --> Generator
+    GeneratedMolecules -.-> ClassicalPredictor
+    ClassicalPredictor -. Classical Property | Prediction .-> Generator
+     Generator:::generator
+     Discriminator:::discriminator
+     QuantumPredictor:::quantum
+     ClassicalPredictor:::classical
+     Noise:::data
+     GeneratedMolecules:::data
+     RealData:::data
+    classDef generator fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+    classDef discriminator fill:#fce4ec,stroke:#d81b60,stroke-width:2px
+    classDef quantum fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    classDef classical fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1px
+    classDef data fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style QuantumLoop padding:10px, margin-top:5px, margin-bottom:5px
+    linkStyle 3 stroke:#388e3c,stroke-width:2px,fill:none
+    linkStyle 5 stroke:#7b1fa2,stroke-width:1px,stroke-dasharray:5 5,fill:none
